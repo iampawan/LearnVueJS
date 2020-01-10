@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shopping List</title>
+    <link rel="stylesheet" href="build/tailwind.css">
+</head>
+
+<body class="bg-gray-100">
+    <div id="app">
+        <h1 class="p-4 text-6xl 
+        font-bold text-center text-blue-500">{{app_name}}</h1>
+        <div class="ml-auto mr-auto bg-white max-w-sm rounded-lg shadow">
+            <div v-for="item in items" :key="item">
+                <h1 class="p-4 text-3xl font-semibold 
+                text-blue-800 text-center">{{ item }}</h1>
+            </div>
+
+        </div>
+        <div class="mt-6 ml-auto mr-auto  max-w-sm rounded-lg flex">
+            <input class="p-2 w-full rounded border border-gray-300" v-model="addItem" type="text" name="" id=""
+                placeholder="Add Item" @keyup.enter="saveItem">
+
+            <button v-if="notEmptyItem" @click="saveItem"
+                class="ml-4 p-2 bg-green-500 rounded-lg text-white">Save</button>
+
+            <button @click="clearItem"
+                :class="notEmptyItem?'ml-4 p-2 bg-red-500 rounded-lg text-white':'ml-4 p-4 bg-gray-500 rounded-lg text-white'">Clear</button>
+        </div>
+        <!-- <h1>{{addItem}}</h1> -->
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                app_name: "Shopping List",
+                addItem: "",
+                items: [
+                    "iPhone 11 PRO",
+                    "Apple Macbook Pro", "Pixel 4 XL"],
+
+
+            },
+
+            computed: {
+                notEmptyItem() {
+                    return this.addItem.length > 0;
+                }
+            },
+
+            methods: {
+                saveItem() {
+                    this.items.push(this.addItem);
+                    this.addItem = "";
+                },
+                clearItem() {
+                    this.addItem = "";
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
